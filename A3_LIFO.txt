@@ -1,0 +1,88 @@
+/**
+ * Yutian Li 19105096 A3_LIFO
+ */
+
+#include "ee108.h"
+#include "ee108_switches.h"
+
+
+const int SUPERLOOP_DELAY_MS = 20;
+
+// function declarations
+void printArray(int *slice, int len);
+
+void setup() {
+  // set up serial
+  Serial.begin(9600);
+  Serial.println("\n\nA3_LIFO starting...");
+}
+
+void loop() {
+  static int n=0;
+  n++;
+  Serial.print("Loop");
+  Serial.print(n);
+  Serial.print(":");
+  static int array1[10] = {0};
+  static int buffer1 =10;
+  int sw1Event;
+  int sw2Event;
+  int sw1;
+  int sw2;
+  sw1Event = readSwitchEventTimes(sw1,NULL);
+  sw2Event = readSwitchEventTimes(sw2, NULL);
+  
+  
+  if (sw1Event == SW_CLICK) {
+    Serial.print("[SW1 clicked]");
+    if(buffer1 != 0){
+      Serial.print("added to buffer,");
+      int ran=random(100);
+      Serial.print(ran);
+      addArray(array1,10-buffer1,ran);
+      printArray(",buffer is now", array1, 11-buffer1);
+      buffer1--;
+      Serial.print(10-buffer1);
+      Serial.println("used");
+      }else{
+        Serial.println("Cannot add to buffer -- buffer full");
+        }
+  }else if (sw2Event == SW_CLICK) {
+    Serial.print("[SW2 clicked]");
+    if(buffer1 != 10){
+      Serial.print("removed to buffer,");
+      addArray(array1,10-buffer1,0);
+      printArray(",buffer is now", array1, 11-buffer1);
+      buffer1++;
+      Serial.print(10-buffer1);
+      Serial.println("used");
+      }else{
+        Serial.println("Cannot remove from buffer -- buffer empty");
+        }
+  }
+    
+  delay(SUPERLOOP_DELAY_MS);
+}
+void addArray(int a[],int len,int number){
+  int i;
+  for(i=0;i<=len;i++){
+  a[i]=number;
+  }
+  }
+void printArray(const char * arrayName, int *slice, int len) {
+  int *pValue;
+
+  Serial.print(arrayName);
+  Serial.print(" { ");
+  
+  // print first value without comma before  
+  if (len > 0)
+    Serial.print(*slice);
+
+  // now print remaining values
+  for (pValue = slice + 1; pValue < slice + len; pValue++) {
+    Serial.print(", ");
+    Serial.print(*pValue);
+  }
+  Serial.println(" }");
+}
