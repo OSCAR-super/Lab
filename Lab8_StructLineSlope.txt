@@ -1,0 +1,64 @@
+/**
+ * Yutian Li 19105096 Lab8_StructLineSlope
+ */
+
+#include "ee108.h"
+
+struct Point2d {
+  int x;
+  int y;
+};
+
+const int SUPERLOOP_DELAY_MS = 50;
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println("\n\nLab8_StructLineSlope starting...\n");
+  Serial.println("\nClick SW1 to start\n");    
+}
+
+void loop() {
+  int sw1Event;
+  struct Point2d point1;
+  struct Point2d point2;
+  strcpy(point1.x,1500);
+  strcpy(point1.y,500);
+  strcpy(point2.x,0);
+  strcpy(point2.y,0);
+  sw1Event = readSwitchEvent(sw1Object);
+
+  if (sw1Event == SW_CLICK) { 
+    Serial.print("[SW1 Click] ");
+    float slope=Kslope(point1,point2);
+    Serial.print( "point1 ");
+    printV(point1);
+    Serial.print( ",point2 ");
+    printV(point2);
+    Serial.print( ", slope=");
+    Serial.println(slope);
+  } else if (sw1Event == SW_CLICK_LONG) {
+    Serial.print("[SW1 Long Click] ");
+    strcpy(point2.x,random()%19999-9999);
+    strcpy(point2.y,random()%19999-9999);
+    Serial.print( "new point2 ");
+    printV(point2);
+    Serial.println();
+  }
+  
+  delay(SUPERLOOP_DELAY_MS);
+}
+float Kslope(struct Point2d point1,struct Point2d point2){
+  if(point2.x-point1.x!=0){
+  float slope=(point2.y-point1.y)/(point2.x-point1.x);
+  return slope;
+  }else{
+    return 99999.99;
+    }
+  }
+  void printV(struct Point2d point){
+    Serial.print("{x=");
+    Serial.print(point.x);
+    Serial.print(",y=");
+    Serial.print(point.y);
+    Serial.print("}");
+    }
