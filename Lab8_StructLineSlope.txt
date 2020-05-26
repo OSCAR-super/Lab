@@ -10,7 +10,8 @@ struct Point2d {
 };
 
 const int SUPERLOOP_DELAY_MS = 50;
-
+void printV(struct Point2d point);
+float Kslope(struct Point2d point1,struct Point2d point2);
 void setup() {
   Serial.begin(9600);
   Serial.println("\n\nLab8_StructLineSlope starting...\n");
