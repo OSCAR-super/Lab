@@ -1,0 +1,108 @@
+/**
+ * Yutian Li 19105096 A4_AverageDirection
+ */
+
+#include "ee108.h"
+
+#define BUF_STRLEN 10
+void setup() {
+  // set up serial
+  Serial.begin(9600);
+  Serial.println("\n\nA4_AverageDirection starting.");
+}
+ struct circularL {
+    char a[10];
+    int tail;
+};
+void loop() {
+  Serial.println("\nType direction characters: J, K, L, or I (upper or lower case) and hit return");
+ struct circularL circular;
+if(circular.a[0]==""){
+  circular.tail=0;
+  }
+  while (true) {
+    Serial.print("Received:");
+    char c;
+    while (Serial.available() == 0){
+      continue;}
+    c = Serial.read();
+    Serial.print(c);
+    if ((c == '\n') || (c == '\r') || (c ==  isspace(c))) {
+      break;
+    }else if((c == 'J')||(c == 'K')||(c == 'L')||(c == 'I')){
+      putIn(c,circular);
+      }
+
+  }
+
+  changexy(circular);
+
+}
+void putIn(char a,struct circularL b){
+  if(b.tail==10){
+    b.tail=0;
+    }
+  b.a[b.tail]=a;
+  b.tail++;
+  }
+void changexy(struct circularL b){
+  int x=0;
+  int y=0;
+  char dir;
+  char com;
+  float slo;
+  Serial.print("Buffer contents:");
+
+  for(int i;i<10;i++){
+      Serial.print(b.a[i]);
+
+  if(b.a[i]=='J'){
+    x--;
+    }else if(b.a[i]=='K'){
+      y--;
+    
+    }else if(b.a[i]=='L'){
+      x++;
+    }else if(b.a[i]=='I'){
+      y--;
+    }
+  }
+    Serial.println();
+    Serial.print("resultant: x=");
+    Serial.print(x);
+    Serial.print(", y=");
+    Serial.println(y);
+    if(x==0){
+      slo=99999;
+      if(y>0){
+        dir="W";
+        com="North";
+        }else if(y<0){
+          dir="S";
+          com="South";
+          }else{
+      dir="NO";
+      com="NO";}
+      }else{
+        slo=x/y;
+        if(slo>0&&x>0){
+          dir="RHW";
+        com="NorthEast";
+          }else if(slo>0&&x<0){
+            dir="LHS";
+        com="SouthWest";
+            }else if(slo<0&&x<0){
+            dir="LHW";
+        com="NorthWest";
+            }else if(slo<0&&x>0){
+            dir="RHS";
+        com="SouthEast";
+            }
+        }
+        Serial.print("direction: ");
+    Serial.print(dir);
+    Serial.print(", 1000*slope=");
+    Serial.print(1000*slo);
+    Serial.print(", compass=");
+    Serial.println(com);
+  }
