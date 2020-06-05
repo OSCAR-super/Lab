@@ -1,0 +1,34 @@
+/**
+ * Yutian Li 19105096 lab2_2
+ */
+
+#include "ee108.h"
+
+const int SUPERLOOP_MS = 1000;
+const int LED_ON_MS = 50;
+const int NUM_LEDS = 5;
+// this variable tracks which Bar LED we want to light
+static int ledNum = 0;
+
+void setup() {
+  // initialize 5 bar LEDs
+  pinMode(BAR_LED_1_PIN, OUTPUT);
+  pinMode(BAR_LED_2_PIN, OUTPUT);
+  pinMode(BAR_LED_3_PIN, OUTPUT);
+  pinMode(BAR_LED_4_PIN, OUTPUT);
+  pinMode(BAR_LED_5_PIN, OUTPUT);
+}
+void loop() {
+  // flash the LED on briefly and then switch it off again
+  digitalWrite(BAR_LED_1_PIN + ledNum, HIGH);
+  delay(LED_ON_MS);
+  digitalWrite(BAR_LED_1_PIN + ledNum, LOW);
+  // TODO - increment the counter and wrap if necessary
+  ++ledNum;
+  if (ledNum >=NUM_LEDS){
+    ledNum = 0;
+    }
+    
+  // pause between LED flashes
+  delay(SUPERLOOP_MS);
+}

@@ -1,0 +1,61 @@
+/**
+ *Yutian Li 19105096 A2_SevenSegment
+ */
+
+#include "ee108.h"
+
+
+
+#define NUM_PATTERN 10;
+const int SUPERLOOP_MS = 1000;
+const long TABLE [NUM_PATTERN]={
+  BIT3|BIT4|BIT5|BIT0|BIT1|BIT2, // 0!
+  BIT1|BIT2, // 1!
+  BIT0|BIT1|BIT6|BIT4|BIT3, // 2!
+  BIT0|BIT1|BIT6|BIT2|BIT3, // 3!
+  BIT5|BIT1|BIT6|BIT2, // 4!
+  BIT0|BIT5|BIT6|BIT3|BIT2, // 5!
+  BIT0|BIT5|BIT6|BIT3|BIT2|BIT4, // 6!
+  BIT1|BIT2|BIT0, // 7!
+  BIT3|BIT4|BIT5|BIT0|BIT1|BIT2|BIT6, // 8!
+  BIT3|BIT5|BIT0|BIT1|BIT2|BIT6 // 9! 
+};
+
+
+void writeLedPins(unsigned int pinStates);
+
+void setup() {
+  int pin;
+
+  // TODO - setup 7-segment lookup table (if using)
+  
+  // set all BarLED/7-Segment pins as outputs
+  for (pin=SEG_G_PIN; pin <= SEG_A_PIN; pin++)
+    pinMode(pin, OUTPUT);
+  
+  Serial.begin(9600);
+  Serial.println("======= A2_SevenSegment starting =========");
+}
+
+void loop() {
+  int value;
+  value = random(10);
+  Serial.print("value is :");
+  Serial.println(value);
+  writeLedPins(TABLE[value]);
+// TODO - display number on 7-segment display
+  delay(SUPERLOOP_MS);
+}
+
+void writeLedPins(unsigned int pinStates) {
+  int pin;
+  for (pin = SEG_G_PIN; pin <= SEG_A_PIN; pin++) {
+    int bitValue = bitRead(pinStates, pin-5);
+    if (bitValue){
+      digitalWrite(pin, HIGH);
+      }else{
+      digitalWrite(pin, LOW);
+      }
+  }
+}
+

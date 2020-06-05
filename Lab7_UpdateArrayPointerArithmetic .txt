@@ -1,0 +1,58 @@
+/**
+ * Yutian Li 19105096 Lab7_UpdateArrayPointerArithmetic
+ */
+
+#include "ee108.h"
+
+
+
+const int SUPERLOOP_DELAY_MS = 50;
+int data[10] = {100, 110, 120,130, 140, 150, 160, 170, 180,190}; 
+void printArray(const int array[]);
+int TArray(const int array[],int i);
+
+
+void setup() {
+  // set up serial
+  Serial.begin(9600);
+  Serial.println("\n\nLab7_UpdateArrayPointerArithmetic starting...\n");
+  Serial.println("\nClick SW1 to start\n");    
+}
+
+void loop() {
+
+
+
+  if (readSwitchEvent(sw1Object) == SW_CLICK) { 
+   
+  
+    printArray(data,"Initial data array contents:");
+    int rm=random(10);
+    data[10]=TArray(data,rm);
+    Serial.print(rm);
+    Serial.println("Chosen offset into array was:");
+    printArray(data,"Modified data array contents: ");
+
+    Serial.println("\nClick SW1 to restart\n");
+  }
+  
+  delay(SUPERLOOP_DELAY_MS);
+}
+
+int TArray(int array[],int i){
+ array[i]=array[i+1]+1;
+  
+  return array;
+  }
+
+void printArray(const int array[],char times) {
+  int i;
+  
+  Serial.println(times);
+  
+  for (i =0; i < 10; i++) {
+    Serial.print(", ");
+    Serial.print(array[i]);
+  }
+  Serial.println(" }");
+}

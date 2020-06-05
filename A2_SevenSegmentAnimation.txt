@@ -1,0 +1,75 @@
+/**
+ *Yutian Li 19105096 A2_SevenSegmentAnimation
+ */
+
+#include "ee108.h"
+
+const int SUPERLOOP_MS = 2000;
+
+void writeLedPins(unsigned int pinStates);
+
+// global lookup table to hold pre-calculated factorials
+
+#define NUM_PRECALCULATED 10
+const long FACTORIAL_TABLE[NUM_PRECALCULATED] = { 
+  1, // 0!
+  1, // 1!
+  2, // 2!
+  6, // 3!
+  24, // 4!
+  120, // 5!
+  720, // 6!
+  5040, // 7!
+  40320, // 8!
+  362880 // 9! 
+};
+
+
+long calcFactorial(int value);
+
+void setup() {
+  int pin;
+
+  // TODO - setup 7-segment lookup table (if using)
+  
+  // set all BarLED/7-Segment pins as outputs
+  for (pin=SEG_G_PIN; pin <= SEG_A_PIN; pin++)
+    pinMode(pin, OUTPUT);
+  
+  Serial.begin(9600);
+  Serial.println("======= A2_SevenSegmentAnimation starting =========");
+}
+
+void loop() {
+  int value;
+  long factorial;
+
+  value = random(10);
+  factorial = calcFactorial(value);
+  writeLedPins(factorial);
+  Serial.print("value is ");
+  Serial.print(value);
+  Serial.print(", factorial is ");
+  Serial.println(factorial);
+
+  delay(SUPERLOOP_MS);
+}
+
+long calcFactorial(int value) {
+  if (value < NUM_PRECALCULATED){
+    return FACTORIAL_TABLE[value];
+    }else{
+    return -1;
+    } // error!
+}
+void writeLedPins(unsigned int pinStates) {
+  int pin;
+  for (pin = SEG_G_PIN; pin <= SEG_A_PIN; pin++) {
+    int bitValue = bitRead(pinStates, pin-5);
+    if (bitValue){
+      digitalWrite(pin, HIGH);
+      }else{
+      digitalWrite(pin, LOW);
+      }
+  }
+}

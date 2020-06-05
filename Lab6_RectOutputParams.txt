@@ -1,0 +1,55 @@
+/*
+ * Yutian Li 19105096 Lab6_RectOutputParams
+ */
+#include "ee108.h"
+
+const int SUPERLOOP_MS = 20;
+
+void rectangle(int length, int width,int *a,int *p);
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println("========= Lab6_RectOutputParams starting ===========");
+  Serial.println("Press SW1 to start...");
+}
+
+void loop() {
+  int sw1Event;
+  int length;
+  int width;
+  int area;
+  int perimeter;
+
+  sw1Event = readSwitchEvent(sw1Object);
+
+  if (sw1Event == SW_CLICK) {
+
+    length=random(100);
+    width=random(100);
+    rectangle(length, width,&area,&perimeter);
+    Serial.print("Rectange: length=");
+    Serial.print(length);
+    Serial.print(", width=");
+    Serial.print(width);
+    Serial.println("=> area "); 
+    Serial.println(area);
+    Serial.println(", perimeter ");
+    Serial.println(perimeter);// newline on its own
+
+
+    Serial.println("\nPress SW1 to do it again...");
+  }
+  
+  delay(SUPERLOOP_MS);
+}
+
+
+
+void rectangle(int length, int width ,int *a,int *p) {
+  
+  *a=length*width;
+  *p=2*(length+width);
+  
+
+  
+}

@@ -1,0 +1,27 @@
+/**
+ *Yutian Li 19105096 lab2_1
+ */
+ 
+#include "ee108.h"
+
+const int LED_1=1;
+const int LED_2=2;
+const int IF_TIME=1500;
+
+ 
+void setup() {
+  pinMode(LED_1,OUTPUT);
+  pinMode(LED_2,OUTPUT);
+  pinMode(SW1_PIN,INPUT);
+}
+
+void loop() {
+  if (digitalRead(SW1_PIN) == SW_ACTIVE){
+    digitalWrite(LED_2,HIGH);
+    digitalWrite(LED_1,LOW);
+    delay(IF_TIME);
+    digitalWrite(LED_2,LOW);
+    digitalWrite(LED_1,HIGH);
+    }
+  delay(100);
+}

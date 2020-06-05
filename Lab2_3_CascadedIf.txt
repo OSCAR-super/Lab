@@ -1,0 +1,42 @@
+/**
+ *Yutian Li 19105096 lab2_1
+ */
+ 
+#include "ee108.h"
+
+const int LED_1=1;
+const int LED_2=2;
+const int BIGTIME = 9;
+const int LED_ON=1000;
+static int ledTime=0;
+
+void setup() {
+ pinMode(LED_1,OUTPUT);
+  pinMode(LED_2,OUTPUT);
+  pinMode(SW1_PIN,INPUT);
+
+}
+void loop() {
+++ledTime;
+  if (ledTime >=BIGTIME){
+    ledTime = 0;
+    }
+if(ledTime==3||ledTime==6){
+       digitalWrite(LED_2,HIGH);
+       delay(LED_ON);
+       digitalWrite(LED_2,LOW);
+}else if(ledTime==2||ledTime==7){
+       
+       digitalWrite(LED_1,HIGH);
+       delay(LED_ON);
+       digitalWrite(LED_1,LOW);
+}else if(ledTime==4||ledTime==5){
+       digitalWrite(LED_1,HIGH);
+       digitalWrite(LED_2,HIGH);
+       delay(LED_ON);
+       digitalWrite(LED_1,LOW);
+       digitalWrite(LED_2,LOW);
+}else{
+       delay(LED_ON);
+}
+}

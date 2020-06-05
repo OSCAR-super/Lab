@@ -1,5 +1,8 @@
 /**
  * Yutian Li 19105096 A4_AverageDirection
+ * I learned about storing data at the next level: creating buffers.
+ * Analyze data changes and process data.
+ * Calculate the vector and determine the direction
  */
 
 #include "ee108.h"
@@ -53,7 +56,7 @@ void changexy(struct circularL b){
   float slo;
   Serial.print("Buffer contents:");
 
-  for(int i;i<10;i++){
+  for(int i=b.tail;i<10;i++){
       Serial.print(b.a[i]);
 
   if(b.a[i]=='J'){
@@ -97,6 +100,13 @@ void changexy(struct circularL b){
             }else if(slo<0&&x>0){
             dir="RHS";
         com="SouthEast";
+            }
+            else if(slo=0&&x>0){
+            dir="E";
+        com="East";
+            }else if(slo=0&&x<0){
+            dir="WE";
+        com="West";
             }
         }
         Serial.print("direction: ");

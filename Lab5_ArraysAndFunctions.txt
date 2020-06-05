@@ -1,0 +1,53 @@
+/**
+ * Yutian Li 19105096 831901208 Lab5_ArraysAndFunctions
+ */
+
+#include "ee108.h"
+#include <stdio.h>
+
+const int SUPERLOOP_MS = 20;
+#define BIG_NUMBER 8
+int ARRAY [BIG_NUMBER]={0};
+
+ 
+void setup() {
+  // serial output
+  Serial.begin(9600);
+
+  Serial.println("====== Lab5_ArraysAndFunctions starting ========");
+}
+
+void loop() {
+  int sw1Event;
+  // Input
+  sw1Event = readSwitchEvent(sw1Object);
+
+  // processing and output 
+  if (sw1Event == SW_CLICK) {
+    // output 1
+    Serial.print("[Click]{");
+    PrintNumber(ARRAY,BIG_NUMBER);
+  } else if (sw1Event == SW_CLICK_LONG) {
+    // output 2
+    Serial.println("[LongClick]{");
+    addNumber(ARRAY,BIG_NUMBER+1);
+    PrintNumber(ARRAY,BIG_NUMBER+1);
+  }
+
+  delay(SUPERLOOP_MS);
+}
+void addNumber(int a[],int b){
+  int c [b];
+    for(int i=0;i<b;i++){
+      int x=random(100);
+      c[i]=x;
+    }
+    ARRAY[b]=c;
+}
+void PrintNumber(int a[],int b){
+    for(int i=0;i<b;i++){
+      Serial.print(ARRAY[i]);
+      Serial.print(",");
+      }
+    Serial.println("}");
+}

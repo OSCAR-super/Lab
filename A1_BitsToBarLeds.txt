@@ -1,0 +1,68 @@
+/**
+ * Yutian Li 19105096 A1_BitsToBarLeds
+ */
+#include "ee108.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+const int ONB = 300;
+const int ONC = 600;
+const int OND = 5;
+const int ONA = 10;
+const int OFFA = 140;
+int loopNum = 0;
+
+
+void setup() {
+  int ledIndex;
+ 
+  pinMode(LED1_PIN, OUTPUT);
+  pinMode(LED2_PIN, OUTPUT);
+  for (ledIndex = 0; ledIndex < NUM_BAR_LEDS; ledIndex++){
+    pinMode(BAR_LED_1_PIN + ledIndex, OUTPUT);
+    }
+  Serial.begin(9600);
+  Serial.println("====== A1_BitsToBarLeds starting ========");
+}
+void loop() {
+  int n;
+  int m;
+  ++loopNum;
+  if(loopNum>15){
+    loopNum=0;
+    }
+  char d;
+  sprintf(d,"BIT%d",loopNum); 
+  Serial.print("ledStates: ");
+  for (n = 1; n <= NUM_BAR_LEDS; n++){
+    m=bitRead(d,n);
+     Serial.print(n);
+     Serial.println();
+     if(m==1){
+     BarLED(n);
+     }
+    }
+  
+ 
+}
+  int BarLED(int number){
+  if(number==1 or number==2){
+    Bnumber(number,ONB);
+  }else if(number==3 or number==5 or number==7){
+    Bnumber(number,ONC);
+   }else if(number==3 or number==5 or number==7){
+    Bnumber2(number,OND);
+    Bnumber2(number,ONA);
+      }
+  }
+void Bnumber(int number,int times){
+  digitalWrite(number-1,HIGH);
+    delay(times);
+    digitalWrite(number-1,LOW);
+  }
+  void Bnumber2(int number,int times){
+  digitalWrite(number-1,HIGH);
+    delay(times);
+    digitalWrite(number-1,LOW);
+    delay(times);
+  }

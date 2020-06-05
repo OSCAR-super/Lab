@@ -1,0 +1,19 @@
+/**
+ *Yutian LI 19105096
+ */
+#include "ee108.h"
+const int USE_LIGHT_CONSTANT = 5;
+const int ON_CONSTANT = 1;  
+const int OFF_CONSTANT = 20; 
+const int ON_DELAY_TIME = 0;
+const int OFF_DELAY_TIME = 500;
+void setup() {
+  pinMode(USE_LIGHT_CONSTANT, OUTPUT);
+}
+void loop() {
+  digitalWrite(USE_LIGHT_CONSTANT, HIGH);  
+  delay(ON_CONSTANT); 
+  delayMicroseconds(ON_DELAY_TIME);
+  digitalWrite(USE_LIGHT_CONSTANT, LOW);
+  delay(OFF_DELAY_TIME);
+}

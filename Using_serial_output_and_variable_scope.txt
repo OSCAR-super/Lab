@@ -1,0 +1,23 @@
+/**
+ *Yutian LI 19105096
+ */
+const unsigned long TIME_INTERVAL = 2000 ;
+unsigned long TIME ;
+int gYourGlobalName = 0;
+void setup(){
+  Serial.begin(9600);
+}
+
+void loop(){
+  static int someStaticLocal = 0 ;
+  int someLocal = 0 ;
+  TIME = millis() ;
+  Serial.print(TIME+"ms:") ;
+  gYourGlobalName = gYourGlobalName + 1 ;
+  someStaticLocal = someStaticLocal + 1 ;
+  someLocal = someLocal + 1 ;
+  Serial.print("gYourGlobalName ="+gYourGlobalName);
+  Serial.print("someStaticLocal ="+someStaticLocal );
+  Serial.println("someLocal ="+someLocal);
+  delay(TIME_INTERVAL); 
+}

@@ -1,0 +1,53 @@
+/**
+ * Yutian Li 19105096 831901208 Lab5_BasicArray
+ */
+
+#include "ee108.h"
+#include <stdio.h>
+
+const int SUPERLOOP_MS = 20;
+#define BIG_NUMBER 8
+int ARRAY [BIG_NUMBER]={0};
+
+ 
+void setup() {
+  // serial output
+  Serial.begin(9600);
+
+  Serial.println("====== Lab5_BasicArray starting ========");
+}
+
+void loop() {
+  int sw1Event;
+  // Input
+  sw1Event = readSwitchEvent(sw1Object);
+
+  // processing and output 
+  if (sw1Event == SW_CLICK) {
+    // output 1
+    Serial.print("[Click]{");
+    for(int i=0;i<BIG_NUMBER;i++){
+      Serial.print(ARRAY[i]);
+      Serial.print(",");
+      }
+    Serial.println("}");
+  } else if (sw1Event == SW_CLICK_LONG) {
+    // output 2
+    Serial.println("[LongClick]{");
+    ARRAY[BIG_NUMBER]=addNumber(ARRAY);
+    for(int i=0;i<BIG_NUMBER;i++){
+      Serial.print(ARRAY[i]);
+      Serial.print(",");
+      }
+    Serial.println("}");
+  }
+
+  delay(SUPERLOOP_MS);
+}
+int addNumber(int a[]){
+    for(int i=0;i<BIG_NUMBER;i++){
+      int x=random(100);
+      a[i]=x;
+      }
+    return a;
+}

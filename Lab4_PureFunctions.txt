@@ -1,0 +1,57 @@
+/**
+ *Yutian Li 19105096 Lab4_PureFunctions
+ */
+
+const int SUPERLOOP_MS = 5000; // 5 second delay
+#include<stdio.h>
+#include<math.h>
+
+
+int square(int value);
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println("------------ Lab4_PureFunctions starting ----------");
+}
+
+void loop() {
+  int o;
+  int s;
+  int p;
+  int q;
+  int r;
+  s = random(100);
+  p = random(100);
+  q = random(100);
+  r = random(100);
+  Serial.print("p is ");
+  Serial.print(p);
+  Serial.print(", q is ");
+  Serial.print(q);
+  Serial.print(", r is ");
+  Serial.print(r);
+  Serial.print(", s is ");
+  Serial.println(s);
+  o=difference(p,r);
+  Serial.print("abs diff p and r is ");
+  if(o>q){
+    Serial.print("abs diff p and r > q is true");
+    }else{
+      Serial.print("abs diff p and r > q is false");
+      }
+  Serial.println(o);
+  o=difference(q,s);
+  Serial.print("abs diff q and s is ");
+  Serial.println(o);
+  o=difference((q,p),(s,r));
+  Serial.print("abs diff of abs diff p and q and abs diff r and s is ");
+  Serial.println(o);
+  delay(SUPERLOOP_MS);
+}
+
+
+int difference(int s,int p) {
+  int o;
+  o=abs(s-p);
+  return o;
+}
