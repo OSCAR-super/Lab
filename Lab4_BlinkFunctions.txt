@@ -1,1 +1,45 @@
-mcnympgbcwdxcjfc
+/**
+ * Yutian Li 19105096 Lab4_BlinkFunctions
+ */
+#include "ee108.h"
+
+
+const int SHORT_ON_MS = 100;
+const int SHORT_OFF_MS = 500;
+const int MED_ON_MS = 500;
+const int MED_OFF_MS = 700;
+const int LONG_ON_MS = 1200;
+const int LONG_OFF_MS = 600;
+static int loopNum = 0;
+
+
+void setup() {
+  int ledIndex;
+ 
+  pinMode(LED1_PIN, OUTPUT);
+  pinMode(LED2_PIN, OUTPUT);
+  for (ledIndex = 0; ledIndex < NUM_BAR_LEDS; ledIndex++){
+    pinMode(BAR_LED_1_PIN + ledIndex, OUTPUT);
+    }
+  Serial.begin(9600);
+  Serial.println("====== Lab4_BlinkFunctions starting ========");
+}
+void loop() {
+  Serial.print("Loop :");
+  ++loopNum;
+  Serial.println(loopNum);
+  Serial.println("  Blink BarLED1 on/off long pattern x 1");
+  BarLED(1,1,LONG_ON_MS,LONG_OFF_MS);
+  Serial.println("  Blink BarLED8 on/off short pattern x 3 times");
+  BarLED(8,3,SHORT_ON_MS,SHORT_ON_MS);
+  Serial.println("  Blink BarLED4 on/off short pattern x 2 times");
+  BarLED(4,2,MED_ON_MS,MED_OFF_MS);
+  }
+  int BarLED(int number,int times,int ontime,int offtime){
+  for (int i=0; i < times; i++) {
+    digitalWrite(number, HIGH);
+    delay(ontime);
+    digitalWrite(number, LOW);
+    delay(offtime);
+    }
+}
